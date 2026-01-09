@@ -1,0 +1,63 @@
+{
+  "common": {
+    "welcome": "Bienvenue !",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "back": "Retour"
+  },
+  "tabs": {
+    "home": "Accueil",
+    "explore": "Explorer"
+  },
+  "home": {
+    "step1": "Étape 1 : Essayez",
+    "step1Description": "Modifiez {{fileName}} pour voir les changements. Appuyez sur {{shortcut}} pour ouvrir les outils de développement.",
+    "step2": "Étape 2 : Explorez",
+    "step2Description": "Appuyez sur l'onglet Explorer pour en savoir plus sur ce qui est inclus dans cette application de démarrage.",
+    "step3": "Étape 3 : Repartez à zéro",
+    "step3Description": "Quand vous êtes prêt, exécutez {{command}} pour obtenir un nouveau répertoire {{folder}}. Cela déplacera l'{{folder}} actuel vers {{folderExample}}."
+  },
+  "explore": {
+    "title": "Explorer",
+    "description": "Cette application comprend un exemple de code pour vous aider à démarrer.",
+    "sections": {
+      "routing": {
+        "title": "Routage basé sur les fichiers",
+        "description": "Cette application comporte deux écrans : {{screen1}} et {{screen2}}",
+        "layoutDescription": "Le fichier de layout dans {{layoutFile}} configure le navigateur à onglets.",
+        "learnMore": "En savoir plus"
+      },
+      "platforms": {
+        "title": "Prise en charge d'Android, iOS et du web",
+        "description": "Vous pouvez ouvrir ce projet sur Android, iOS et le web. Pour ouvrir la version web, appuyez sur {{shortcut}} dans le terminal exécutant ce projet."
+      },
+      "images": {
+        "title": "Images",
+        "description": "Pour les images statiques, vous pouvez utiliser les suffixes {{suffix1}} et {{suffix2}} pour fournir des fichiers pour différentes densités d'écran",
+        "learnMore": "En savoir plus"
+      },
+      "themes": {
+        "title": "Composants mode clair et sombre",
+        "description": "Ce modèle prend en charge les modes clair et sombre. Le hook {{hook}} vous permet d'inspecter le schéma de couleurs actuel de l'utilisateur, et donc d'ajuster les couleurs de l'interface en conséquence.",
+        "learnMore": "En savoir plus"
+      },
+      "animations": {
+        "title": "Animations",
+        "description": "Ce modèle comprend un exemple de composant animé. Le composant {{component}} utilise la puissante bibliothèque {{library}} pour créer une animation de la main qui fait signe.",
+        "iosNote": "Le composant {{component}} fournit un effet de parallaxe pour l'image d'en-tête."
+      }
+    }
+  },
+  "modal": {
+    "title": "Ceci est une fenêtre modale",
+    "goHome": "Aller à l'écran d'accueil"
+  }
+}
