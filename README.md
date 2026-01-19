@@ -12,6 +12,9 @@ A modern, feature-based architecture React Native boilerplate built with Expo, T
 - 🔥 **TypeScript** - Fully typed with strict mode enabled
 - 🎭 **Theming** - Light and dark mode support
 - ✨ **Code Quality** - ESLint and Prettier configured
+- 🌐 **API Client** - Auto-generated OpenAPI client with axios
+- 🔐 **Authentication** - Token-based auth with secure storage
+- ⚡ **React Query** - Data fetching and state management with TanStack Query
 
 ## 📁 Project Structure
 
@@ -53,6 +56,16 @@ A modern, feature-based architecture React Native boilerplate built with Expo, T
 │       ├── language-switcher.tsx
 │       └── parallax-scroll-view.tsx
 │
+├── 🌐 api-client/            ← Auto-generated API client (OpenAPI)
+│   ├── client/               ← HTTP client and request handlers
+│   │   ├── client.gen.ts    ← Generated client methods
+│   │   ├── types.gen.ts     ← API types and interfaces
+│   │   └── utils.gen.ts     ← Utility functions
+│   └── core/                 ← Core API functionality
+│       ├── auth.gen.ts      ← Authentication utilities
+│       ├── params.gen.ts    ← Request parameter handling
+│       └── pathSerializer.gen.ts ← URL path serialization
+│
 ├── 🪝 hooks/                  ← Custom React hooks
 │   ├── use-color-scheme.ts
 │   ├── use-theme-color.ts
@@ -82,6 +95,9 @@ A modern, feature-based architecture React Native boilerplate built with Expo, T
 | **Styling** | NativeWind 4.x (Tailwind CSS) |
 | **Language** | TypeScript 5.9 |
 | **i18n** | expo-localization, i18next, react-i18next |
+| **API Client** | Axios 1.x, OpenAPI TypeScript client |
+| **State Management** | TanStack React Query 5.x |
+| **Storage** | expo-secure-store |
 | **Icons** | Expo Vector Icons, Expo Symbols |
 | **Linting** | ESLint 9.x |
 | **Formatting** | Prettier 3.x |
@@ -144,6 +160,82 @@ export function MyComponent() {
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 
 <LanguageSwitcher />
+```
+
+## 🌐 API Integration
+
+The project includes an auto-generated API client with full TypeScript support and React Query integration.
+
+### Configuration
+
+The API client is configured in `lib/axios.ts`:
+
+- **Base URL**: Set via `EXPO_PUBLIC_API_URL` environment variable (defaults to `http://localhost:8000`)
+- **Authentication**: Automatically adds Bearer token from secure storage
+- **Interceptors**: Handles request/response transformations
+- **Ngrok Support**: Includes ngrok skip browser warning header
+
+### Using the API Client
+
+```tsx
+import { useQuery } from "@tanstack/react-query";
+import { client } from "@/api-client/client.gen";
+import { useAppTranslation } from "@/hooks/use-translation";
+
+export function UserProfile() {
+  const { t } = useAppTranslation();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["user", "profile"],
+    queryFn: () => client.GET("/user/profile"),
+  });
+
+  if (isLoading) return <ThemedText>{t("common.loading")}</ThemedText>;
+  if (error) return <ThemedText>Error loading profile</ThemedText>;
+
+  return (
+    <ThemedView>
+      <ThemedText>Welcome, {data?.data?.name}</ThemedText>
+    </ThemedView>
+  );
+}
+```
+
+### Authentication
+
+The API client automatically includes the authentication token from secure storage:
+
+```tsx
+import * as SecureStore from "expo-secure-store";
+
+// Store token after login
+await SecureStore.setItemAsync("access_token", token);
+
+// Token is automatically added to all requests
+```
+
+### Mutations with React Query
+
+```tsx
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/api-client/client.gen";
+
+export function LoginScreen() {
+  const login = useMutation({
+    mutationFn: (credentials: { email: string; password: string }) =>
+      client.POST("/auth/login", { body: credentials }),
+    onSuccess: (data) => {
+      // Store token and navigate
+      SecureStore.setItemAsync("access_token", data.data.token);
+    },
+  });
+
+  return (
+    <Button onPress={() => login.mutate({ email, password })}>
+      Login
+    </Button>
+  );
+}
 ```
 
 ## 🏗️ Creating New Features
